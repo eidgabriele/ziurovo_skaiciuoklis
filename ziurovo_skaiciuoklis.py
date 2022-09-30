@@ -49,37 +49,31 @@ class Kolekcija():
             self.katalogas = pickle.load(failas)
         return self.katalogas
 
-class Ziurovas():
-
-    ziurovo_sarasas = []
-
-    def __init__(self, vardas):
-        self.vardas = vardas
-
-    def itraukti_filma(self, kolekcija, filmo_pavadinimas):
+    def itraukti_filma_is_kolekcijos(self, kolekcija, filmo_pavadinimas):
         for irasas in kolekcija:
             if filmo_pavadinimas == irasas.pavadinimas:
-                self.ziurovo_sarasas.append(irasas)
+                self.katalogas.append(irasas)
 
     def spausdinti_ziurovo_sarasa(self):
-        print(f"Ziurovas: {self.vardas}\nMatyti filmai:")
-        for irasas in self.ziurovo_sarasas:
+        for irasas in self.katalogas:
             print(irasas.pavadinimas)
 
     def skaiciuoti_ziurovo_laika(self):
         praziuretas_laikas = 0
-        for irasas in self.ziurovo_sarasas:
+        for irasas in self.katalogas:
             if isinstance(irasas, Serialas):
                 praziuretas_laikas += irasas.serijos*irasas.trukme
             else:
                 praziuretas_laikas += irasas.trukme
-        print(f"Ziureta {praziuretas_laikas} minuciu")
+        valandos = praziuretas_laikas // 60
+        minutes = praziuretas_laikas - (valandos*60)
+        print(f"Ziureta {valandos} valandu,{minutes} minuciu")
 
     def skaiciuoti_ziurovo_sarasa(self):
         filmai = 0
         serialai = 0 
         serijos = 0
-        for irasas in self.ziurovo_sarasas:
+        for irasas in self.katalogas:
             if isinstance(irasas, Serialas):
                 serialai += 1
                 serijos += irasas.serijos
@@ -90,7 +84,10 @@ class Ziurovas():
     def saugoti_ziurovo_sarasa(self):
         pass
 
+    
+
 kolekcija = Kolekcija()
+ziurovas = Kolekcija()
 
 # kolekcija.prideti_filma("Lawrence of Arabia", 1962, 218, "UK")
 # kolekcija.prideti_filma("Everything Everywhere All at Once", 2022, 139, "USA")
@@ -99,9 +96,10 @@ kolekcija = Kolekcija()
 kolekcija.uzkrauti_kataloga()
 kolekcija.spausdinamas_katalogas()
 
-ziurovas = Ziurovas("Jonas")
-ziurovas.itraukti_filma(kolekcija.katalogas,"Cowboy Bebop")
-ziurovas.itraukti_filma(kolekcija.katalogas,"Lawrence of Arabia")
+ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas,"Cowboy Bebop")
+ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas,"Lawrence of Arabia")
+ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas, "Mad Men")
+ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas, "Constantine")
 ziurovas.spausdinti_ziurovo_sarasa()
 ziurovas.skaiciuoti_ziurovo_laika()
 ziurovas.skaiciuoti_ziurovo_sarasa()
