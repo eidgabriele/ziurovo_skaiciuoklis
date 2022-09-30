@@ -1,12 +1,19 @@
-
+import pickle
 
 class Filmas():
     def __init__(self, pavadinimas, metai, trukme, salis):
-        self.pavadinimas = pavadinimas
+        self._pavadinimas = pavadinimas
         self.metai = metai
-        self.trukme = trukme
+        self._trukme = trukme
         self.salis = salis
 
+    @property
+    def trukme(self):
+        return self._trukme
+
+    @property
+    def pavadinimas(self):
+        return self._pavadinimas
 
 class Serialas(Filmas):
     def __init__(self, pavadinimas, metai, trukme, salis, sezonai, serijos):
@@ -58,10 +65,19 @@ class Ziurovas():
                 praziuretas_laikas += irasas.serijos*irasas.trukme
             else:
                 praziuretas_laikas += irasas.trukme
-        return praziuretas_laikas
+        print(f"Ziureta {praziuretas_laikas} minuciu")
 
     def skaiciuoti_ziurovo_sarasa(self):
-        pass
+        filmai = 0
+        serialai = 0 
+        serijos = 0
+        for irasas in self.ziurovo_sarasas:
+            if isinstance(irasas, Serialas):
+                serialai += 1
+                serijos += irasas.serijos
+            elif isinstance(irasas, Filmas):
+                filmai +=1
+        print(f"Matyti {filmai} filmai, {serialai} serialai (viso {serijos} serijos)")
 
     def saugoti_ziurovo_sarasa(self):
         pass
@@ -79,6 +95,8 @@ ziurovas = Ziurovas("Jonas")
 ziurovas.itraukti_filma(kolekcija.katalogas,"Cowboy Bebop")
 ziurovas.itraukti_filma(kolekcija.katalogas,"Lawrence of Arabia")
 ziurovas.spausdinti_ziurovo_sarasa()
-print(ziurovas.skaiciuoti_ziurovo_laika())
+ziurovas.skaiciuoti_ziurovo_laika()
+ziurovas.skaiciuoti_ziurovo_sarasa()
+
 
 
