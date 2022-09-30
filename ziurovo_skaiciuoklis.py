@@ -96,6 +96,9 @@ def rodyti_ziurova():
     saraso_laukas.delete(0, END)
     saraso_laukas.insert(END, *ziurovas.katalogas)
 
+def kursoriaus_reiksme():
+    statusas["text"]=saraso_laukas.get(saraso_laukas.curselection())
+
 kolekcija = Kolekcija()
 ziurovas = Kolekcija()
 
@@ -129,9 +132,9 @@ saraso_freimas.grid(row=2,  column=0,  padx=10,  pady=5)
 scrollbaras = Scrollbar(saraso_freimas)
 saraso_laukas = Listbox(saraso_freimas, width=85, height=8, yscrollcommand=scrollbaras.set)
 scrollbaras.config(command=saraso_laukas.yview)
-# saraso_laukas.insert(END, *kolekcija.katalogas)
 scrollbaras.grid(row=0, column=1, sticky=NSEW)
-saraso_laukas.grid(row=0,column=0, sticky=NSEW) 
+saraso_laukas.grid(row=0,column=0, sticky=NSEW)
+# saraso_laukas.get(saraso_laukas.curselection())
 
 
 pasirinkciu_freimas.grid(row=0,  column=0,  padx=10,  pady=5)
@@ -141,6 +144,9 @@ m_uzkrauti_ziurovo_kataloga = Button(pasirinkciu_freimas, text="Ziurovo kataloga
 m_uzkrauti_ziurovo_kataloga.grid(row=1, column=1, padx=10, pady=5)
 m_iseiti = Button(pasirinkciu_freimas, text="Iseiti", command=uzdaryti)
 m_iseiti.grid(row=1, column=2, padx=10, pady=5)
+m_ivesti = Button(pasirinkciu_freimas, text="ivesti", command=kursoriaus_reiksme)
+m_ivesti.grid(row=2, column=2, padx=10, pady=5)
+
 
 
 
