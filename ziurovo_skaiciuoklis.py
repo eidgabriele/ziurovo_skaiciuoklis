@@ -6,9 +6,6 @@ class Filmas():
         self.metai = metai
         self.trukme = trukme
         self.salis = salis
-    
-    def get_filmas(self):
-        return self.pavadinimas, self.metai, self.trukme, self.salis
 
     def get_trukme(self):
         return self.trukme
@@ -18,14 +15,6 @@ class Serialas(Filmas):
         super().__init__(pavadinimas, metai, trukme, salis)
         self.sezonai = sezonai
         self.serijos = serijos
-
-    def get_filmas(self):
-        return self.pavadinimas, self.metai, self.trukme, self.salis, self.sezonai, self.serijos
-
-    def get_trukme(self):
-        return self.trukme
-
-    
 
 
 class Kolekcija():
@@ -41,15 +30,10 @@ class Kolekcija():
 
     def spausdinamas_katalogas(self):
         for irasas in self.katalogas:
-            if isinstance(irasas, Filmas):
-                print(irasas.pavadinimas, irasas.metai, irasas.trukme, irasas.salis)
-            elif isinstance(irasas, Serialas):
+            if isinstance(irasas, Serialas):
                 print(irasas.pavadinimas, irasas.metai, irasas.trukme, irasas.salis, irasas.sezonai, irasas.serijos)
-    
-    def gauti_filma_seriala(self, pavadinimas):
-        for irasas in self.katalogas:
-            if pavadinimas == irasas.pavadinimas:
-                return irasas.get_filmas()
+            elif isinstance(irasas, Filmas):
+                print(irasas.pavadinimas, irasas.metai, irasas.trukme, irasas.salis)
 
 
 class Ziurovas():
@@ -59,17 +43,23 @@ class Ziurovas():
     def __init__(self, vardas):
         self.vardas = vardas
 
-    def itraukti_filma(self, pavadinimas):
-        pridedamas_filmas_serialas = kolekcija.gauti_filma_seriala(pavadinimas)
-        if pridedamas_filmas_serialas != None:
-            self.ziurovo_sarasas.append(pridedamas_filmas_serialas)
-        else:
-            print("ner tokio")
+    def itraukti_filma(self, kolekcija, filmo_pavadinimas):
+        for irasas in kolekcija:
+            if filmo_pavadinimas == irasas.pavadinimas:
+                self.ziurovo_sarasas.append(irasas)
 
-    
     def spausdinti_ziurovo_sarasa(self):
         for irasas in self.ziurovo_sarasas:
-            print(irasas)
+            print(irasas.pavadinimas)
+
+    def skaiciuoti_ziurovo_laika(self):
+        pass
+
+    def skaiciuoti_ziurovo_sarasa(self):
+        pass
+
+    def saugoti_ziurovo_sarasa(self):
+        pass
 
 kolekcija = Kolekcija()
 
@@ -81,5 +71,7 @@ kolekcija.prideti_seriala("Cowboy Bebop", 1998, 24, "Japan", 1, 26)
 kolekcija.spausdinamas_katalogas()
 
 ziurovas = Ziurovas("Jonas")
-ziurovas.itraukti_filma("Cowboy Bebop")
+ziurovas.itraukti_filma(kolekcija.katalogas,"Cowboy Bebop")
+ziurovas.itraukti_filma(kolekcija.katalogas,"Lawrence of Arabia")
 ziurovas.spausdinti_ziurovo_sarasa()
+
