@@ -7,8 +7,6 @@ class Filmas():
         self.trukme = trukme
         self.salis = salis
 
-    def get_trukme(self):
-        return self.trukme
 
 class Serialas(Filmas):
     def __init__(self, pavadinimas, metai, trukme, salis, sezonai, serijos):
@@ -49,11 +47,18 @@ class Ziurovas():
                 self.ziurovo_sarasas.append(irasas)
 
     def spausdinti_ziurovo_sarasa(self):
+        print(f"Ziurovas: {self.vardas}\nMatyti filmai:")
         for irasas in self.ziurovo_sarasas:
             print(irasas.pavadinimas)
 
     def skaiciuoti_ziurovo_laika(self):
-        pass
+        praziuretas_laikas = 0
+        for irasas in self.ziurovo_sarasas:
+            if isinstance(irasas, Serialas):
+                praziuretas_laikas += irasas.serijos*irasas.trukme
+            else:
+                praziuretas_laikas += irasas.trukme
+        return praziuretas_laikas
 
     def skaiciuoti_ziurovo_sarasa(self):
         pass
@@ -74,4 +79,6 @@ ziurovas = Ziurovas("Jonas")
 ziurovas.itraukti_filma(kolekcija.katalogas,"Cowboy Bebop")
 ziurovas.itraukti_filma(kolekcija.katalogas,"Lawrence of Arabia")
 ziurovas.spausdinti_ziurovo_sarasa()
+print(ziurovas.skaiciuoti_ziurovo_laika())
+
 
