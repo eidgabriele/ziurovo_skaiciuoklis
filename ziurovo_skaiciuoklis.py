@@ -85,7 +85,16 @@ class Kolekcija():
         print(f"Matyti {filmai} filmai, {serialai} serialai (viso {serijos} serijos)")
 
 
-    
+def uzdaryti():
+    langas.destroy()
+
+def rodyti_kataloga():
+    saraso_laukas.delete(0, END)
+    saraso_laukas.insert(END, *kolekcija.katalogas)
+
+def rodyti_ziurova():
+    saraso_laukas.delete(0, END)
+    saraso_laukas.insert(END, *ziurovas.katalogas)
 
 kolekcija = Kolekcija()
 ziurovas = Kolekcija()
@@ -102,7 +111,7 @@ ziurovas.spausdinamas_katalogas()
 
 
 langas = Tk()
-langas.geometry("550x300")
+langas.geometry("550x400")
 pasirinkciu_freimas = Frame(langas)
 saraso_freimas = Frame(langas)
 statuso_freimas = Frame(langas)
@@ -110,18 +119,30 @@ statuso_freimas = Frame(langas)
 langas.grid_rowconfigure(1, weight=1)
 langas.grid_columnconfigure(0, weight=1)
 
-pasirinkciu_freimas.grid(row=0,  column=0,  padx=10,  pady=5)
-statuso_freimas.grid(row=3, column=0, padx=10, pady=5)
+
+
+statuso_freimas.grid(row=3, column=0, padx=5, pady=5)
 statusas = Label(langas, text="cia bus statuso pranesimai", bd=2, relief=SUNKEN, anchor=W)
 statusas.grid(row=6, column=0, sticky=W+E)
 
 saraso_freimas.grid(row=2,  column=0,  padx=10,  pady=5)
 scrollbaras = Scrollbar(saraso_freimas)
-saraso_laukas = Listbox(saraso_freimas, width=300, yscrollcommand=scrollbaras.set)
+saraso_laukas = Listbox(saraso_freimas, width=85, height=8, yscrollcommand=scrollbaras.set)
 scrollbaras.config(command=saraso_laukas.yview)
-saraso_laukas.insert(END, *kolekcija.katalogas)
-scrollbaras.grid(row=0, column=1, sticky=E)
-saraso_laukas.grid(row=0,column=0, sticky=NSEW)
+# saraso_laukas.insert(END, *kolekcija.katalogas)
+scrollbaras.grid(row=0, column=1, sticky=NSEW)
+saraso_laukas.grid(row=0,column=0, sticky=NSEW) 
+
+
+pasirinkciu_freimas.grid(row=0,  column=0,  padx=10,  pady=5)
+m_uzkrauti_visa_kolekcija = Button(pasirinkciu_freimas, text="Kolekcija", command=rodyti_kataloga)
+m_uzkrauti_visa_kolekcija.grid(row=1, column=0, padx=10, pady=5, sticky=EW)
+m_uzkrauti_ziurovo_kataloga = Button(pasirinkciu_freimas, text="Ziurovo katalogas", command= rodyti_ziurova)
+m_uzkrauti_ziurovo_kataloga.grid(row=1, column=1, padx=10, pady=5)
+m_iseiti = Button(pasirinkciu_freimas, text="Iseiti", command=uzdaryti)
+m_iseiti.grid(row=1, column=2, padx=10, pady=5)
+
+
 
 langas.mainloop()
 
