@@ -1,4 +1,5 @@
 import pickle
+from tkinter import *
 
 class Filmas():
     def __init__(self, pavadinimas, metai, trukme, salis):
@@ -6,6 +7,9 @@ class Filmas():
         self.metai = metai
         self._trukme = trukme
         self.salis = salis
+
+    def __str__(self):
+        return f"{self.pavadinimas}, {self.metai}, {self.trukme}min, {self.salis}"
 
     @property
     def trukme(self):
@@ -21,6 +25,8 @@ class Serialas(Filmas):
         self.sezonai = sezonai
         self.serijos = serijos
 
+    def __str__(self):
+        return f"{self.pavadinimas}, {self.metai}, {self.trukme}min, {self.salis}, {self.sezonai}-as sezonas, {self.serijos}-os serijos"
 
 class Kolekcija():
     katalogas = []
@@ -39,6 +45,7 @@ class Kolekcija():
                 print(irasas.pavadinimas, irasas.metai, irasas.trukme, irasas.salis, irasas.sezonai, irasas.serijos)
             elif isinstance(irasas, Filmas):
                 print(irasas.pavadinimas, irasas.metai, irasas.trukme, irasas.salis)
+         
 
     def saugoti_kataloga(self, failo_pavadinimas):
         with open('data/'+failo_pavadinimas+'.pkl', 'wb') as failas:
@@ -53,10 +60,6 @@ class Kolekcija():
         for irasas in kolekcija:
             if filmo_pavadinimas == irasas.pavadinimas:
                 self.katalogas.append(irasas)
-
-    def spausdinti_ziurovo_sarasa(self):
-        for irasas in self.katalogas:
-            print(irasas.pavadinimas)
 
     def skaiciuoti_ziurovo_laika(self):
         praziuretas_laikas = 0
@@ -81,28 +84,14 @@ class Kolekcija():
                 filmai +=1
         print(f"Matyti {filmai} filmai, {serialai} serialai (viso {serijos} serijos)")
 
-    def saugoti_ziurovo_sarasa(self):
-        pass
 
     
 
 kolekcija = Kolekcija()
 ziurovas = Kolekcija()
 
-# kolekcija.prideti_filma("Lawrence of Arabia", 1962, 218, "UK")
-# kolekcija.prideti_filma("Everything Everywhere All at Once", 2022, 139, "USA")
-# kolekcija.prideti_seriala("The Office", 2005, 22, "USA", 9, 6)
-# kolekcija.prideti_seriala("Cowboy Bebop", 1998, 24, "Japan", 1, 26)
-# kolekcija.prideti_filma("Whiplash", 2014, 106, "USA")
-# kolekcija.prideti_filma("Oldboy", 2003, 120, "South Korea")
-# kolekcija.prideti_filma("Persona", 1966, 83, "Sweeden")
-# kolekcija.prideti_filma("Constantine", 2005, 121, "USA")
-# kolekcija.prideti_seriala("Twin Peaks", 1990, 47, "USA", 2, 8)
-# kolekcija.prideti_seriala("Mad Men", 2007, 47, "USA", 7, 14)
-kolekcija.uzkrauti_kataloga("kolekcija")
-# kolekcija.spausdinamas_katalogas()
-# kolekcija.saugoti_kataloga("kolekcija")
 
+kolekcija.uzkrauti_kataloga("kolekcija")
 # ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas,"Cowboy Bebop")
 # ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas,"Lawrence of Arabia")
 # ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas, "Mad Men")
@@ -110,10 +99,29 @@ kolekcija.uzkrauti_kataloga("kolekcija")
 # ziurovas.saugoti_kataloga("ziurovas")
 ziurovas.uzkrauti_kataloga("ziurovas")
 ziurovas.spausdinamas_katalogas()
-# ziurovas.spausdinti_ziurovo_sarasa()
-# ziurovas.skaiciuoti_ziurovo_laika()
-# ziurovas.skaiciuoti_ziurovo_sarasa()
-# kolekcija.saugoti_kataloga()
 
 
+langas = Tk()
+langas.geometry("550x300")
+pasirinkciu_freimas = Frame(langas)
+saraso_freimas = Frame(langas)
+statuso_freimas = Frame(langas)
+
+langas.grid_rowconfigure(1, weight=1)
+langas.grid_columnconfigure(0, weight=1)
+
+pasirinkciu_freimas.grid(row=0,  column=0,  padx=10,  pady=5)
+statuso_freimas.grid(row=3, column=0, padx=10, pady=5)
+statusas = Label(langas, text="cia bus statuso pranesimai", bd=2, relief=SUNKEN, anchor=W)
+statusas.grid(row=6, column=0, sticky=W+E)
+
+saraso_freimas.grid(row=2,  column=0,  padx=10,  pady=5)
+scrollbaras = Scrollbar(saraso_freimas)
+saraso_laukas = Listbox(saraso_freimas, width=300, yscrollcommand=scrollbaras.set)
+scrollbaras.config(command=saraso_laukas.yview)
+saraso_laukas.insert(END, *kolekcija.katalogas)
+scrollbaras.grid(row=0, column=1, sticky=E)
+saraso_laukas.grid(row=0,column=0, sticky=NSEW)
+
+langas.mainloop()
 
