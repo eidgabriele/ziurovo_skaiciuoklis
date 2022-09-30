@@ -40,6 +40,14 @@ class Kolekcija():
             elif isinstance(irasas, Filmas):
                 print(irasas.pavadinimas, irasas.metai, irasas.trukme, irasas.salis)
 
+    def saugoti_kataloga(self):
+        with open('data/katalogas.pkl', 'wb') as failas:
+            pickle.dump(self.katalogas, failas)
+
+    def uzkrauti_kataloga(self):
+        with open('data/katalogas.pkl', 'rb') as failas:
+            self.katalogas = pickle.load(failas)
+        return self.katalogas
 
 class Ziurovas():
 
@@ -84,11 +92,11 @@ class Ziurovas():
 
 kolekcija = Kolekcija()
 
-kolekcija.prideti_filma("Lawrence of Arabia", 1962, 218, "UK")
-kolekcija.prideti_filma("Everything Everywhere All at Once", 2022, 139, "USA")
-kolekcija.prideti_seriala("The Office", 2005, 22, "USA", 9, 6)
-kolekcija.prideti_seriala("Cowboy Bebop", 1998, 24, "Japan", 1, 26)
-
+# kolekcija.prideti_filma("Lawrence of Arabia", 1962, 218, "UK")
+# kolekcija.prideti_filma("Everything Everywhere All at Once", 2022, 139, "USA")
+# kolekcija.prideti_seriala("The Office", 2005, 22, "USA", 9, 6)
+# kolekcija.prideti_seriala("Cowboy Bebop", 1998, 24, "Japan", 1, 26)
+kolekcija.uzkrauti_kataloga()
 kolekcija.spausdinamas_katalogas()
 
 ziurovas = Ziurovas("Jonas")
@@ -97,6 +105,7 @@ ziurovas.itraukti_filma(kolekcija.katalogas,"Lawrence of Arabia")
 ziurovas.spausdinti_ziurovo_sarasa()
 ziurovas.skaiciuoti_ziurovo_laika()
 ziurovas.skaiciuoti_ziurovo_sarasa()
+# kolekcija.saugoti_kataloga()
 
 
 
