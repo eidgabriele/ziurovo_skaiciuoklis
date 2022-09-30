@@ -40,12 +40,12 @@ class Kolekcija():
             elif isinstance(irasas, Filmas):
                 print(irasas.pavadinimas, irasas.metai, irasas.trukme, irasas.salis)
 
-    def saugoti_kataloga(self):
-        with open('data/katalogas.pkl', 'wb') as failas:
+    def saugoti_kataloga(self, failo_pavadinimas):
+        with open('data/'+failo_pavadinimas+'.pkl', 'wb') as failas:
             pickle.dump(self.katalogas, failas)
 
-    def uzkrauti_kataloga(self):
-        with open('data/katalogas.pkl', 'rb') as failas:
+    def uzkrauti_kataloga(self, failo_pavadinimas):
+        with open('data/'+failo_pavadinimas+'.pkl', 'rb') as failas:
             self.katalogas = pickle.load(failas)
         return self.katalogas
 
@@ -93,16 +93,26 @@ ziurovas = Kolekcija()
 # kolekcija.prideti_filma("Everything Everywhere All at Once", 2022, 139, "USA")
 # kolekcija.prideti_seriala("The Office", 2005, 22, "USA", 9, 6)
 # kolekcija.prideti_seriala("Cowboy Bebop", 1998, 24, "Japan", 1, 26)
-kolekcija.uzkrauti_kataloga()
-kolekcija.spausdinamas_katalogas()
+# kolekcija.prideti_filma("Whiplash", 2014, 106, "USA")
+# kolekcija.prideti_filma("Oldboy", 2003, 120, "South Korea")
+# kolekcija.prideti_filma("Persona", 1966, 83, "Sweeden")
+# kolekcija.prideti_filma("Constantine", 2005, 121, "USA")
+# kolekcija.prideti_seriala("Twin Peaks", 1990, 47, "USA", 2, 8)
+# kolekcija.prideti_seriala("Mad Men", 2007, 47, "USA", 7, 14)
+kolekcija.uzkrauti_kataloga("kolekcija")
+# kolekcija.spausdinamas_katalogas()
+# kolekcija.saugoti_kataloga("kolekcija")
 
-ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas,"Cowboy Bebop")
-ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas,"Lawrence of Arabia")
-ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas, "Mad Men")
-ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas, "Constantine")
-ziurovas.spausdinti_ziurovo_sarasa()
-ziurovas.skaiciuoti_ziurovo_laika()
-ziurovas.skaiciuoti_ziurovo_sarasa()
+# ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas,"Cowboy Bebop")
+# ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas,"Lawrence of Arabia")
+# ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas, "Mad Men")
+# ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas, "Constantine")
+# ziurovas.saugoti_kataloga("ziurovas")
+ziurovas.uzkrauti_kataloga("ziurovas")
+ziurovas.spausdinamas_katalogas()
+# ziurovas.spausdinti_ziurovo_sarasa()
+# ziurovas.skaiciuoti_ziurovo_laika()
+# ziurovas.skaiciuoti_ziurovo_sarasa()
 # kolekcija.saugoti_kataloga()
 
 
