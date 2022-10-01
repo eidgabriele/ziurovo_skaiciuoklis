@@ -1,6 +1,7 @@
 import pickle
 from tkinter import *
 from tkinter import ttk
+from PIL import Image, ImageTk
 
 class Filmas():
     def __init__(self, pavadinimas, metai, trukme, salis):
@@ -207,7 +208,7 @@ m_uzkrauti_ziurovo_kataloga = Button(pasirinkciu_freimas, text="Ziurovo kataloga
 m_uzkrauti_ziurovo_kataloga.grid(row=1, column=2, padx=10, pady=5)
 m_iseiti = Button(pasirinkciu_freimas, text="Iseiti", command=uzdaryti)
 m_iseiti.grid(row=1, column=3, padx=10, pady=5)
-m_ivesti = Button(pasirinkciu_freimas, text="ivesti", command=kursoriaus_reiksme)
+m_ivesti = Button(pasirinkciu_freimas, text="Issaugoti")
 m_ivesti.grid(row=1, column=4, padx=10, pady=5)
 
 l_pasirinkti = Label(kolekcijos_pasirinkciu_freimas, text="Prideti nauja", bg="white")
@@ -253,5 +254,11 @@ l_pasirinkti_is_kolekcijos = Label(langas, text="Pasirinkite filma, kuri norite 
 l_pasirinkti_is_kolekcijos.grid(row=2, columnspan=2, padx=10, pady=5, sticky=W)
 m_itraukti_ziurovui = Button(langas, text="Itraukti i ziurovo kataloga", bg="white")
 m_itraukti_ziurovui.grid(row=2, padx=15, pady=5, sticky=E)
+
+
+# ikona, pavadinimas
+ikona = Image.open('icons/icon-movie.png')
+langas.wm_iconphoto(False, ImageTk.PhotoImage(ikona))
+langas.title("Filmu kolekcija")
 langas.mainloop()
 
