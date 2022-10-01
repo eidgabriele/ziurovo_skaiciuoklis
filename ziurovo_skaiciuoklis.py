@@ -60,7 +60,8 @@ class Kolekcija():
                 print(irasas)
                 self.katalogas.append(irasas)
 
-        
+    def istrinti_filma_is_kolekcijos(self, pasirinktas_indeksas):
+            self.katalogas.pop(pasirinktas_indeksas)
 
     def skaiciuoti_ziurovo_laika(self):
         praziuretas_laikas = 0
@@ -103,6 +104,8 @@ def rodyti_ziurova():
     ziurovo_pasirinkciu_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
     ziurovo_pasirinkciu_freimas.config(background="white")
     ziurovo_pasirinkciu_freimas.place(height=160, width=510, x=15, y=60)
+    ziurovas.skaiciuoti_ziurovo_laika()
+    ziurovas.skaiciuoti_ziurovo_sarasa()
     saraso_laukas.delete(0, END) 
     saraso_laukas.insert(END, *ziurovas.katalogas)
 
@@ -162,6 +165,12 @@ def prideti_ziurovui():
         ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas,filmo_indeksas[0])
         statusas["text"] = f"Irasas {kolekcija.katalogas[filmo_indeksas[0]].pavadinimas} itrauktas i ziurovo kataloga"
 
+def istrinti_is_kolekcijos():
+    filmo_indeksas= saraso_laukas.curselection()
+    ziurovas.istrinti_filma_is_kolekcijos(filmo_indeksas[0])
+    rodyti_ziurova()
+    statusas["text"] = f"Irasas istrintas is ziurovo kataloga"
+
 kolekcija = Kolekcija()
 ziurovas = Kolekcija()
 
@@ -173,7 +182,6 @@ kolekcija.uzkrauti_kataloga("kolekcija")
 # ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas, "Constantine")
 # ziurovas.saugoti_kataloga("ziurovas")
 ziurovas.uzkrauti_kataloga("ziurovas")
-ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas, 0)
 
 # grafines sasajos pagr langai freimai
 langas = Tk()
@@ -263,13 +271,14 @@ l_statistika.grid(row=0,  column=0,  padx=10,  pady=5, sticky=E)
 viso = str(ziurovas.skaiciuoti_ziurovo_sarasa)
 l_viso_vienetu = Label(ziurovo_pasirinkciu_freimas, text="")
 l_viso_vienetu.grid(row=0, column=1, padx=10,  pady=5, sticky=W)
-ziurovas.skaiciuoti_ziurovo_sarasa()
 l_viso_laiko = Label(ziurovo_pasirinkciu_freimas, text="")
 l_viso_laiko.grid(row=1, column=1, padx=10,  pady=5, sticky=W)
-ziurovas.skaiciuoti_ziurovo_laika()
 
-l_matyti_filma = Label(ziurovo_pasirinkciu_freimas, text="Matytu filmu/serialu sarasas:")
-l_matyti_filma.grid(row=4, column=0, padx=10,  pady=5, sticky=S)
+
+# l_matyti_filma = Label(ziurovo_pasirinkciu_freimas, text="Matytu filmu/serialu sarasas:")
+# l_matyti_filma.grid(row=4, column=0, padx=10,  pady=5, sticky=S)
+m_istrinti_filma = Button(ziurovo_pasirinkciu_freimas, text="Isimti is katalogo", command=istrinti_is_kolekcijos)
+m_istrinti_filma.grid(row=4, column=0, padx=10,  pady=5, sticky=E+S)
 
 
 # ikona, pavadinimas
