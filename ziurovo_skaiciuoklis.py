@@ -97,7 +97,7 @@ def rodyti_ziurova():
     saraso_laukas.insert(END, *ziurovas.katalogas)
 
 def kursoriaus_reiksme():
-    statusas["text"]=saraso_laukas.get(saraso_laukas.curselection())
+    statusas["text"]=saraso_laukas.curselection()
 
 kolekcija = Kolekcija()
 ziurovas = Kolekcija()
