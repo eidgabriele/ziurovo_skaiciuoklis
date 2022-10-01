@@ -186,11 +186,11 @@ langas.grid_columnconfigure(0, weight=1)
 
 
 #pranesimu juosta
-statuso_freimas.grid(row=3, column=0, padx=5, pady=5)
+statuso_freimas.grid(row=4, column=0, padx=5, pady=5)
 statusas = Label(langas, text="cia bus statuso pranesimai", bd=2, relief=SUNKEN, anchor=W)
 statusas.grid(row=6, column=0, sticky=W+E)
 # saraso listboxo elementai
-saraso_freimas.grid(row=2,  column=0,  padx=10,  pady=5)
+saraso_freimas.grid(row=3,  column=0,  padx=10,  pady=5)
 scrollbaras = Scrollbar(saraso_freimas)
 saraso_laukas = Listbox(saraso_freimas, width=85, height=8, yscrollcommand=scrollbaras.set)
 scrollbaras.config(command=saraso_laukas.yview)
@@ -212,7 +212,7 @@ m_ivesti.grid(row=1, column=4, padx=10, pady=5)
 
 l_pasirinkti = Label(kolekcijos_pasirinkciu_freimas, text="Prideti nauja", bg="white")
 l_pasirinkti.grid(row=0,  column=0,  padx=10,  pady=5)
-m_ziurovo_kolekcija_prideti = Button(kolekcijos_pasirinkciu_freimas, text="Prideti i sarasa", command=kolekcijos_ivedimas)
+m_ziurovo_kolekcija_prideti = Button(kolekcijos_pasirinkciu_freimas, text="Prideti i kolekcija", command=kolekcijos_ivedimas)
 m_ziurovo_kolekcija_prideti.grid(row=0, column=4, padx=10, pady=5, sticky=E)
 
 # filmu ivedimo elementai
@@ -248,5 +248,10 @@ m_filmas.grid(row=0, column=1, pady=5, sticky=W)
 m_serialas = Radiobutton(kolekcijos_pasirinkciu_freimas, text="Serialas", variable=radio_button, value="1", bg= "white", command=serialai_on)
 m_serialas.grid(row=0, column=2, pady=5, sticky=W)
 
+# pasirinkti is kolekcijos ir itraukti ziurovo kataloga
+l_pasirinkti_is_kolekcijos = Label(langas, text="Pasirinkite filma, kuri norite itraukti i savo kataloga", bg="white")
+l_pasirinkti_is_kolekcijos.grid(row=2, columnspan=2, padx=10, pady=5, sticky=W)
+m_itraukti_ziurovui = Button(langas, text="Itraukti i ziurovo kataloga", bg="white")
+m_itraukti_ziurovui.grid(row=2, padx=15, pady=5, sticky=E)
 langas.mainloop()
 
