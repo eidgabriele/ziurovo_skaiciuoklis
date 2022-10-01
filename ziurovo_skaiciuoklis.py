@@ -94,6 +94,7 @@ def uzdaryti():
     langas.destroy()
 
 def rodyti_kataloga():
+    reiksmiu_nunulinimas()
     kolekcijos_pasirinkciu_freimas.tkraise()
     kolekcijos_pasirinkciu_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
     kolekcijos_pasirinkciu_freimas.config(background="white")
@@ -147,7 +148,16 @@ def kolekcijos_ivedimas():
         elif radio_button.get()==1:
             kolekcija.prideti_seriala(pavadinimas, metai, trukme, salis, sezonas, serijos)
             statusas["text"]= f"Serialas {pavadinimas} buvo itrauktas i kolekcija"
+        reiksmiu_nunulinimas()
 
+
+def reiksmiu_nunulinimas():
+    e_pavadinimas.delete(0, END)
+    e_metai.delete(0, END)
+    e_trukme.delete(0,END)
+    e_salis.delete(0, END)
+    e_sezonas.delete(0, END)
+    e_serijos.delete(0, END)
 
 kolekcija = Kolekcija()
 ziurovas = Kolekcija()
@@ -189,14 +199,16 @@ saraso_laukas.grid(row=0,column=0, sticky=NSEW)
 
 # virsutine mygtuku juosta
 pasirinkciu_freimas.grid(row=0,  column=0,  padx=10,  pady=5)
+l_pasirinkimai = Label(pasirinkciu_freimas, text="Pasirinkite kataloga:")
+l_pasirinkimai.grid(row=1, column=0, padx=10, pady=5)
 m_uzkrauti_visa_kolekcija = Button(pasirinkciu_freimas, text="Kolekcija", command=rodyti_kataloga)
-m_uzkrauti_visa_kolekcija.grid(row=1, column=0, padx=10, pady=5, sticky=W)
+m_uzkrauti_visa_kolekcija.grid(row=1, column=1, padx=10, pady=5, sticky=W)
 m_uzkrauti_ziurovo_kataloga = Button(pasirinkciu_freimas, text="Ziurovo katalogas", command= rodyti_ziurova)
-m_uzkrauti_ziurovo_kataloga.grid(row=1, column=1, padx=10, pady=5)
+m_uzkrauti_ziurovo_kataloga.grid(row=1, column=2, padx=10, pady=5)
 m_iseiti = Button(pasirinkciu_freimas, text="Iseiti", command=uzdaryti)
-m_iseiti.grid(row=1, column=2, padx=10, pady=5)
+m_iseiti.grid(row=1, column=3, padx=10, pady=5)
 m_ivesti = Button(pasirinkciu_freimas, text="ivesti", command=kursoriaus_reiksme)
-m_ivesti.grid(row=1, column=3, padx=10, pady=5)
+m_ivesti.grid(row=1, column=4, padx=10, pady=5)
 
 l_pasirinkti = Label(kolekcijos_pasirinkciu_freimas, text="Prideti nauja", bg="white")
 l_pasirinkti.grid(row=0,  column=0,  padx=10,  pady=5)
