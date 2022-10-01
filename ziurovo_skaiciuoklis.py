@@ -57,7 +57,6 @@ class Kolekcija():
     def uzkrauti_kataloga(self, failo_pavadinimas):
         with open('data/'+failo_pavadinimas+'.pkl', 'rb') as failas:
             self.katalogas = pickle.load(failas)
-        # statusas["text"] = f"Katalogas {failo_pavadinimas} buvo uzkrautas."
         return self.katalogas
         
 
@@ -65,7 +64,7 @@ class Kolekcija():
         for irasas in kolekcija:
             if filmo_pavadinimas == irasas.pavadinimas:
                 self.katalogas.append(irasas)
-        # statusas["text"] = f"{irasas.pavadinimas} buvo itrauktas i kataloga."
+        
 
     def skaiciuoti_ziurovo_laika(self):
         praziuretas_laikas = 0
@@ -128,8 +127,27 @@ def serialai_on():
     e_serijos.update()
     statusas["text"]="on"
 
+def kolekcijos_ivedimas():
+    print(radio_button.get())
+    try:
+        pavadinimas = str(e_pavadinimas.get())
+        metai = int(e_metai.get())
+        trukme = int(e_trukme.get())
+        salis = str(e_salis.get())
+        if radio_button.get()==1:
+            sezonas = int(e_sezonas.get())
+            serijos = int(e_serijos.get())
+    except ValueError as e:
+        print(e)
+        statusas["text"] = f"Ivesta netinkama reiksme: {e}"
+    else:
+        if radio_button.get()==0:
+            kolekcija.prideti_filma(pavadinimas, metai, trukme, salis)
+            statusas["text"]= f"Filmas {pavadinimas} buvo itrauktas i kolekcija"
+        elif radio_button.get()==1:
+            kolekcija.prideti_seriala(pavadinimas, metai, trukme, salis, sezonas, serijos)
+            statusas["text"]= f"Serialas {pavadinimas} buvo itrauktas i kolekcija"
 
-        
 
 kolekcija = Kolekcija()
 ziurovas = Kolekcija()
@@ -182,7 +200,7 @@ m_ivesti.grid(row=1, column=3, padx=10, pady=5)
 
 l_pasirinkti = Label(kolekcijos_pasirinkciu_freimas, text="Prideti nauja", bg="white")
 l_pasirinkti.grid(row=0,  column=0,  padx=10,  pady=5)
-m_ziurovo_kolekcija_prideti = Button(kolekcijos_pasirinkciu_freimas, text="Prideti i sarasa")
+m_ziurovo_kolekcija_prideti = Button(kolekcijos_pasirinkciu_freimas, text="Prideti i sarasa", command=kolekcijos_ivedimas)
 m_ziurovo_kolekcija_prideti.grid(row=0, column=4, padx=10, pady=5, sticky=E)
 
 # filmu ivedimo elementai
@@ -207,11 +225,11 @@ l_sezonas.grid(row=2, column=3, sticky=E)
 e_sezonas = Entry(kolekcijos_pasirinkciu_freimas)  
 e_sezonas.grid(row=2, column=4)
 e_sezonas.configure(state=DISABLED)
+l_serijos = Label(kolekcijos_pasirinkciu_freimas, text="Serijos")
+l_serijos.grid(row=3, column=3, sticky=E)
 e_serijos = Entry(kolekcijos_pasirinkciu_freimas)
 e_serijos.grid(row=3, column=4)
 e_serijos.configure(state=DISABLED)
-l_serijos = Label(kolekcijos_pasirinkciu_freimas, text="Serijos")
-l_serijos.grid(row=3, column=3, sticky=E)
 radio_button = IntVar()
 m_filmas = Radiobutton(kolekcijos_pasirinkciu_freimas, text="Filmas", variable=radio_button, value="0", bg= "white", command=serialai_off)
 m_filmas.grid(row=0, column=1, pady=5, sticky=W)
