@@ -76,7 +76,7 @@ class Kolekcija():
                 praziuretas_laikas += irasas.trukme
         valandos = praziuretas_laikas // 60
         minutes = praziuretas_laikas - (valandos*60)
-        print(f"Ziureta {valandos} valandu,{minutes} minuciu")
+        l_viso_laiko["text"] =  f"Ziureta {valandos} valandu,{minutes} minuciu"
 
     def skaiciuoti_ziurovo_sarasa(self):
         filmai = 0
@@ -88,7 +88,7 @@ class Kolekcija():
                 serijos += irasas.serijos
             elif isinstance(irasas, Filmas):
                 filmai +=1
-        print(f"Matyti {filmai} filmai, {serialai} serialai (viso {serijos} serijos)")
+        l_viso_vienetu["text"]  = f"Matyti {filmai} filmai, {serialai} serialai (viso {serijos} serijos)"
 
 
 def uzdaryti():
@@ -99,7 +99,7 @@ def rodyti_kataloga():
     kolekcijos_pasirinkciu_freimas.tkraise()
     kolekcijos_pasirinkciu_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
     kolekcijos_pasirinkciu_freimas.config(background="white")
-    kolekcijos_pasirinkciu_freimas.place(height=125, width=510, x=15, y=60)
+    kolekcijos_pasirinkciu_freimas.place(height=160, width=510, x=15, y=60)
     saraso_laukas.delete(0, END)
     saraso_laukas.insert(END, *kolekcija.katalogas)
 
@@ -107,7 +107,7 @@ def rodyti_ziurova():
     ziurovo_pasirinkciu_freimas.tkraise()
     ziurovo_pasirinkciu_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
     ziurovo_pasirinkciu_freimas.config(background="white")
-    ziurovo_pasirinkciu_freimas.place(height=120, width=510, x=15, y=60)
+    ziurovo_pasirinkciu_freimas.place(height=160, width=510, x=15, y=60)
     saraso_laukas.delete(0, END) 
     saraso_laukas.insert(END, *ziurovas.katalogas)
     
@@ -203,17 +203,18 @@ saraso_laukas.grid(row=0,column=0, sticky=NSEW)
 
 # virsutine mygtuku juosta
 pasirinkciu_freimas.grid(row=0,  column=0,  padx=10,  pady=5)
-l_pasirinkimai = Label(pasirinkciu_freimas, text="Pasirinkite kataloga:")
+l_pasirinkimai = Label(pasirinkciu_freimas, text="Pasirinkite kataloga:", bg="white")
 l_pasirinkimai.grid(row=1, column=0, padx=10, pady=5)
-m_uzkrauti_visa_kolekcija = Button(pasirinkciu_freimas, text="Kolekcija", command=rodyti_kataloga)
+m_uzkrauti_visa_kolekcija = Button(pasirinkciu_freimas, text="Kolekcija", command=rodyti_kataloga,  bg="white")
 m_uzkrauti_visa_kolekcija.grid(row=1, column=1, padx=10, pady=5, sticky=W)
-m_uzkrauti_ziurovo_kataloga = Button(pasirinkciu_freimas, text="Ziurovo katalogas", command= rodyti_ziurova)
+m_uzkrauti_ziurovo_kataloga = Button(pasirinkciu_freimas, text="Ziurovo katalogas", command= rodyti_ziurova,  bg="white")
 m_uzkrauti_ziurovo_kataloga.grid(row=1, column=2, padx=10, pady=5)
-m_iseiti = Button(pasirinkciu_freimas, text="Iseiti", command=uzdaryti)
-m_iseiti.grid(row=1, column=3, padx=10, pady=5)
-m_ivesti = Button(pasirinkciu_freimas, text="Issaugoti", command=katalogu_saugojimas)
-m_ivesti.grid(row=1, column=4, padx=10, pady=5)
+m_iseiti = Button(pasirinkciu_freimas, text="Iseiti", command=uzdaryti,  bg="white")
+m_iseiti.grid(row=1, column=4, padx=10, pady=5)
+m_ivesti = Button(pasirinkciu_freimas, text="Issaugoti", command=katalogu_saugojimas,  bg="white")
+m_ivesti.grid(row=1, column=3, padx=10, pady=5)
 
+# kolekcijos freimas
 l_pasirinkti = Label(kolekcijos_pasirinkciu_freimas, text="Prideti nauja", bg="white")
 l_pasirinkti.grid(row=0,  column=0,  padx=10,  pady=5)
 m_ziurovo_kolekcija_prideti = Button(kolekcijos_pasirinkciu_freimas, text="Prideti i kolekcija", command=kolekcijos_ivedimas)
@@ -253,10 +254,21 @@ m_serialas = Radiobutton(kolekcijos_pasirinkciu_freimas, text="Serialas", variab
 m_serialas.grid(row=0, column=2, pady=5, sticky=W)
 
 # pasirinkti is kolekcijos ir itraukti ziurovo kataloga
-l_pasirinkti_is_kolekcijos = Label(langas, text="Pasirinkite filma, kuri norite itraukti i savo kataloga", bg="white")
-l_pasirinkti_is_kolekcijos.grid(row=2, columnspan=2, padx=10, pady=5, sticky=W)
-m_itraukti_ziurovui = Button(langas, text="Itraukti i ziurovo kataloga", bg="white")
-m_itraukti_ziurovui.grid(row=2, padx=15, pady=5, sticky=E)
+l_pasirinkti_is_kolekcijos = Label(kolekcijos_pasirinkciu_freimas, text="Pasirinkite filma", bg="white")
+l_pasirinkti_is_kolekcijos.grid(row=5, column=0, padx= 10, pady= 5, sticky=W)
+m_itraukti_ziurovui = Button(kolekcijos_pasirinkciu_freimas, text="Itraukti i ziurovo kataloga")
+m_itraukti_ziurovui.grid(row=5,column=4, padx= 10, pady= 5, sticky=E)
+
+# ziurovo freimas
+l_statistika = Label(ziurovo_pasirinkciu_freimas, text="Jusu statistika:")
+l_statistika.grid(row=0,  column=0,  padx=10,  pady=5)
+viso = str(ziurovas.skaiciuoti_ziurovo_sarasa)
+l_viso_vienetu = Label(ziurovo_pasirinkciu_freimas, text="")
+l_viso_vienetu.grid(row=0, column=1, padx=10,  pady=5, sticky=W)
+ziurovas.skaiciuoti_ziurovo_sarasa()
+l_viso_laiko = Label(ziurovo_pasirinkciu_freimas, text="")
+l_viso_laiko.grid(row=1, column=1, padx=10,  pady=5, sticky=W)
+ziurovas.skaiciuoti_ziurovo_laika()
 
 
 # ikona, pavadinimas
