@@ -110,9 +110,6 @@ def rodyti_ziurova():
     saraso_laukas.delete(0, END) 
     saraso_laukas.insert(END, *ziurovas.katalogas)
     
-   
-    
-   
 def kursoriaus_reiksme():
     statusas["text"]=saraso_laukas.curselection()
 
@@ -148,6 +145,7 @@ ziurovas.uzkrauti_kataloga("ziurovas")
 ziurovas.spausdinamas_katalogas()
 
 
+# grafines sasajos pagr langai freimai
 langas = Tk()
 langas.geometry("550x400")
 pasirinkciu_freimas = Frame(langas)
@@ -155,16 +153,15 @@ kolekcijos_pasirinkciu_freimas = Frame(langas)
 ziurovo_pasirinkciu_freimas = Frame(langas)
 saraso_freimas = Frame(langas)
 statuso_freimas = Frame(langas)
-
 langas.grid_rowconfigure(1, weight=1)
 langas.grid_columnconfigure(0, weight=1)
 
 
-
+#pranesimu juosta
 statuso_freimas.grid(row=3, column=0, padx=5, pady=5)
 statusas = Label(langas, text="cia bus statuso pranesimai", bd=2, relief=SUNKEN, anchor=W)
 statusas.grid(row=6, column=0, sticky=W+E)
-
+# saraso listboxo elementai
 saraso_freimas.grid(row=2,  column=0,  padx=10,  pady=5)
 scrollbaras = Scrollbar(saraso_freimas)
 saraso_laukas = Listbox(saraso_freimas, width=85, height=8, yscrollcommand=scrollbaras.set)
@@ -172,7 +169,7 @@ scrollbaras.config(command=saraso_laukas.yview)
 scrollbaras.grid(row=0, column=1, sticky=NSEW)
 saraso_laukas.grid(row=0,column=0, sticky=NSEW)
 
-
+# virsutine mygtuku juosta
 pasirinkciu_freimas.grid(row=0,  column=0,  padx=10,  pady=5)
 m_uzkrauti_visa_kolekcija = Button(pasirinkciu_freimas, text="Kolekcija", command=rodyti_kataloga)
 m_uzkrauti_visa_kolekcija.grid(row=1, column=0, padx=10, pady=5, sticky=W)
@@ -183,18 +180,12 @@ m_iseiti.grid(row=1, column=2, padx=10, pady=5)
 m_ivesti = Button(pasirinkciu_freimas, text="ivesti", command=kursoriaus_reiksme)
 m_ivesti.grid(row=1, column=3, padx=10, pady=5)
 
-
-
-# tarpinis_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
-# tarpinis_pasirinkciu_freimas.place(height=120, width=510, x=15, y=60)
-# tarpinis_pasirinkciu_freimas.config(background="white")
-
-
 l_pasirinkti = Label(kolekcijos_pasirinkciu_freimas, text="Prideti nauja", bg="white")
 l_pasirinkti.grid(row=0,  column=0,  padx=10,  pady=5)
 m_ziurovo_kolekcija_prideti = Button(kolekcijos_pasirinkciu_freimas, text="Prideti i sarasa")
 m_ziurovo_kolekcija_prideti.grid(row=0, column=4, padx=10, pady=5, sticky=E)
 
+# filmu ivedimo elementai
 l_pavadinimas = Label(kolekcijos_pasirinkciu_freimas, text="Pavadinimas", bg= "white")
 l_pavadinimas.grid(row=1, column=0,sticky=E)
 e_pavadinimas = Entry(kolekcijos_pasirinkciu_freimas)
@@ -215,12 +206,12 @@ l_sezonas = Label(kolekcijos_pasirinkciu_freimas, text="Sezonas")
 l_sezonas.grid(row=2, column=3, sticky=E)
 e_sezonas = Entry(kolekcijos_pasirinkciu_freimas)  
 e_sezonas.grid(row=2, column=4)
+e_sezonas.configure(state=DISABLED)
 e_serijos = Entry(kolekcijos_pasirinkciu_freimas)
 e_serijos.grid(row=3, column=4)
+e_serijos.configure(state=DISABLED)
 l_serijos = Label(kolekcijos_pasirinkciu_freimas, text="Serijos")
 l_serijos.grid(row=3, column=3, sticky=E)
-
-    
 radio_button = IntVar()
 m_filmas = Radiobutton(kolekcijos_pasirinkciu_freimas, text="Filmas", variable=radio_button, value="0", bg= "white", command=serialai_off)
 m_filmas.grid(row=0, column=1, pady=5, sticky=W)
