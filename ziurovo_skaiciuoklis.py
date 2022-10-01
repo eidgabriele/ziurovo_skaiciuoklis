@@ -42,14 +42,7 @@ class Kolekcija():
         serialas = Serialas(pavadinimas, metai, trukme, salis, sezonai, serijos)
         self.katalogas.append(serialas)
         statusas["text"] = f"{pavadinimas} buvo itrauktas i kolekcija."
-
-    # def spausdinamas_katalogas(self):
-    #     for irasas in self.katalogas:
-    #         if isinstance(irasas, Serialas):
-    #             print(irasas.pavadinimas, irasas.metai, irasas.trukme, irasas.salis, irasas.sezonai, irasas.serijos)
-    #         elif isinstance(irasas, Filmas):
-    #             print(irasas.pavadinimas, irasas.metai, irasas.trukme, irasas.salis)
-         
+   
 
     def saugoti_kataloga(self, failo_pavadinimas):
         with open('data/'+failo_pavadinimas+'.pkl', 'wb') as failas:
@@ -61,10 +54,12 @@ class Kolekcija():
         return self.katalogas
         
 
-    def itraukti_filma_is_kolekcijos(self, kolekcija, filmo_pavadinimas):
-        for irasas in kolekcija:
-            if filmo_pavadinimas == irasas.pavadinimas:
+    def itraukti_filma_is_kolekcijos(self, kolekcija, pasirinktas_indeksas):
+        for indeksas, irasas in enumerate(kolekcija):
+            if pasirinktas_indeksas == indeksas:
+                print(irasas)
                 self.katalogas.append(irasas)
+
         
 
     def skaiciuoti_ziurovo_laika(self):
@@ -110,9 +105,7 @@ def rodyti_ziurova():
     ziurovo_pasirinkciu_freimas.place(height=160, width=510, x=15, y=60)
     saraso_laukas.delete(0, END) 
     saraso_laukas.insert(END, *ziurovas.katalogas)
-    
-def kursoriaus_reiksme():
-    statusas["text"]=saraso_laukas.curselection()
+
 
     
 def serialai_off():
@@ -164,6 +157,11 @@ def katalogu_saugojimas():
     ziurovas.saugoti_kataloga("ziurovas")
     statusas["text"] = "Katalogai buvo issaugoti"
 
+def prideti_ziurovui():
+        filmo_indeksas= saraso_laukas.curselection()
+        ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas,filmo_indeksas[0])
+        statusas["text"] = f"Irasas {kolekcija.katalogas[filmo_indeksas[0]].pavadinimas} itrauktas i ziurovo kataloga"
+
 kolekcija = Kolekcija()
 ziurovas = Kolekcija()
 
@@ -175,7 +173,7 @@ kolekcija.uzkrauti_kataloga("kolekcija")
 # ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas, "Constantine")
 # ziurovas.saugoti_kataloga("ziurovas")
 ziurovas.uzkrauti_kataloga("ziurovas")
-
+ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas, 0)
 
 # grafines sasajos pagr langai freimai
 langas = Tk()
@@ -237,12 +235,12 @@ l_salis = Label(kolekcijos_pasirinkciu_freimas, text="Salis", bg= "white")
 l_salis.grid(row=4, column=0, sticky= E)
 e_salis = Entry(kolekcijos_pasirinkciu_freimas)
 e_salis.grid(row=4, column=1)
-l_sezonas = Label(kolekcijos_pasirinkciu_freimas, text="Sezonas")
+l_sezonas = Label(kolekcijos_pasirinkciu_freimas, text="Sezonas", bg= "white")
 l_sezonas.grid(row=2, column=3, sticky=E)
 e_sezonas = Entry(kolekcijos_pasirinkciu_freimas)  
 e_sezonas.grid(row=2, column=4)
 e_sezonas.configure(state=DISABLED)
-l_serijos = Label(kolekcijos_pasirinkciu_freimas, text="Serijos")
+l_serijos = Label(kolekcijos_pasirinkciu_freimas, text="Serijos", bg= "white")
 l_serijos.grid(row=3, column=3, sticky=E)
 e_serijos = Entry(kolekcijos_pasirinkciu_freimas)
 e_serijos.grid(row=3, column=4)
@@ -256,12 +254,12 @@ m_serialas.grid(row=0, column=2, pady=5, sticky=W)
 # pasirinkti is kolekcijos ir itraukti ziurovo kataloga
 l_pasirinkti_is_kolekcijos = Label(kolekcijos_pasirinkciu_freimas, text="Pasirinkite filma", bg="white")
 l_pasirinkti_is_kolekcijos.grid(row=5, column=0, padx= 10, pady= 5, sticky=W)
-m_itraukti_ziurovui = Button(kolekcijos_pasirinkciu_freimas, text="Itraukti i ziurovo kataloga")
+m_itraukti_ziurovui = Button(kolekcijos_pasirinkciu_freimas, text="Itraukti i ziurovo kataloga", command=prideti_ziurovui)
 m_itraukti_ziurovui.grid(row=5,column=4, padx= 10, pady= 5, sticky=E)
 
 # ziurovo freimas
 l_statistika = Label(ziurovo_pasirinkciu_freimas, text="Jusu statistika:")
-l_statistika.grid(row=0,  column=0,  padx=10,  pady=5)
+l_statistika.grid(row=0,  column=0,  padx=10,  pady=5, sticky=E)
 viso = str(ziurovas.skaiciuoti_ziurovo_sarasa)
 l_viso_vienetu = Label(ziurovo_pasirinkciu_freimas, text="")
 l_viso_vienetu.grid(row=0, column=1, padx=10,  pady=5, sticky=W)
@@ -269,6 +267,9 @@ ziurovas.skaiciuoti_ziurovo_sarasa()
 l_viso_laiko = Label(ziurovo_pasirinkciu_freimas, text="")
 l_viso_laiko.grid(row=1, column=1, padx=10,  pady=5, sticky=W)
 ziurovas.skaiciuoti_ziurovo_laika()
+
+l_matyti_filma = Label(ziurovo_pasirinkciu_freimas, text="Matytu filmu/serialu sarasas:")
+l_matyti_filma.grid(row=4, column=0, padx=10,  pady=5, sticky=S)
 
 
 # ikona, pavadinimas
