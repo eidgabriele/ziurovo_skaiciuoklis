@@ -95,19 +95,18 @@ def uzdaryti():
     langas.destroy()
 
 def rodyti_kataloga():
-    # kolekcijos_pasirinkciu_freimas = Frame(langas)
-    # kolekcijos_pasirinkciu_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
     kolekcijos_pasirinkciu_freimas.tkraise()
+    kolekcijos_pasirinkciu_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
+    kolekcijos_pasirinkciu_freimas.config(background="white")
+    kolekcijos_pasirinkciu_freimas.place(height=125, width=510, x=15, y=60)
     saraso_laukas.delete(0, END)
     saraso_laukas.insert(END, *kolekcija.katalogas)
-    m_rodyti_ivedima = Checkbutton(kolekcijos_pasirinkciu_freimas, text="Prideti nauja", command=nauju_filmu_ivedimas)
-    m_rodyti_ivedima.grid(row=0,  column=0,  padx=10,  pady=5)
-    # ziurovo_pasirinkciu_freimas.destroy()
-    m_ziurovo_kolekcija_prideti = Button(kolekcijos_pasirinkciu_freimas, text="Prideti i sarasa")
-    m_ziurovo_kolekcija_prideti.grid(row=0, column=5, padx=10, pady=5, sticky=E)
 
 def rodyti_ziurova():
     ziurovo_pasirinkciu_freimas.tkraise()
+    ziurovo_pasirinkciu_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
+    ziurovo_pasirinkciu_freimas.config(background="white")
+    ziurovo_pasirinkciu_freimas.place(height=120, width=510, x=15, y=60)
     saraso_laukas.delete(0, END) 
     saraso_laukas.insert(END, *ziurovas.katalogas)
     
@@ -117,30 +116,23 @@ def rodyti_ziurova():
 def kursoriaus_reiksme():
     statusas["text"]=saraso_laukas.curselection()
 
-def nauju_filmu_ivedimas():
-    radio_button = IntVar()
-    m_filmas = Radiobutton(kolekcijos_pasirinkciu_freimas, text="Filmas", variable=radio_button, value=1)
-    m_filmas.grid(row=0, column=1, pady=5, sticky=W)
-    m_serialas = Radiobutton(kolekcijos_pasirinkciu_freimas, text="Serialas", variable=radio_button, value=2)
-    m_serialas.grid(row=0, column=2, pady=5, sticky=W)
-    l_pavadinimas = Label(kolekcijos_pasirinkciu_freimas, text="Pavadinimas")
-    l_pavadinimas.grid(row=1, column=0,sticky=E)
-    e_pavadinimas = Entry(kolekcijos_pasirinkciu_freimas)
-    e_pavadinimas.grid(row=1, column=1)
-    l_metai = Label(kolekcijos_pasirinkciu_freimas, text="Metai")
-    l_metai.grid(row=2, column=0, sticky= E)
-    e_metai = Entry(kolekcijos_pasirinkciu_freimas)
-    e_metai.grid(row=2, column=1)
-    l_trukme = Label(kolekcijos_pasirinkciu_freimas, text="Trukme")
-    l_trukme.grid(row=3, column=0, sticky= E)
-    e_trukme = Entry(kolekcijos_pasirinkciu_freimas)
-    e_trukme.grid(row=3, column=1)
-    l_salis = Label(kolekcijos_pasirinkciu_freimas, text="Salis")
-    l_salis.grid(row=4, column=0, sticky= E)
-    e_salis = Entry(kolekcijos_pasirinkciu_freimas)
-    e_salis.grid(row=4, column=1)
+    
+def serialai_off():
+    e_sezonas.configure(state=DISABLED)
+    e_sezonas.update()
+    e_serijos.configure(state=DISABLED)
+    e_serijos.update()
+    statusas["text"]="off"
+
+def serialai_on():
+    e_sezonas.configure(state=NORMAL) 
+    e_sezonas.update()
+    e_serijos.configure(state=NORMAL)
+    e_serijos.update()
+    statusas["text"]="on"
 
 
+        
 
 kolekcija = Kolekcija()
 ziurovas = Kolekcija()
@@ -192,14 +184,48 @@ m_ivesti = Button(pasirinkciu_freimas, text="ivesti", command=kursoriaus_reiksme
 m_ivesti.grid(row=1, column=3, padx=10, pady=5)
 
 
-ziurovo_pasirinkciu_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
-ziurovo_pasirinkciu_freimas.place(height=120, width=510, x=15, y=80)
-ziurovo_pasirinkciu_freimas.config(background="white")
 
-kolekcijos_pasirinkciu_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
-kolekcijos_pasirinkciu_freimas.place(height=120, width=510, x=15, y=80)
-kolekcijos_pasirinkciu_freimas.config(background="white")
+# tarpinis_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
+# tarpinis_pasirinkciu_freimas.place(height=120, width=510, x=15, y=60)
+# tarpinis_pasirinkciu_freimas.config(background="white")
 
+
+l_pasirinkti = Label(kolekcijos_pasirinkciu_freimas, text="Prideti nauja", bg="white")
+l_pasirinkti.grid(row=0,  column=0,  padx=10,  pady=5)
+m_ziurovo_kolekcija_prideti = Button(kolekcijos_pasirinkciu_freimas, text="Prideti i sarasa")
+m_ziurovo_kolekcija_prideti.grid(row=0, column=4, padx=10, pady=5, sticky=E)
+
+l_pavadinimas = Label(kolekcijos_pasirinkciu_freimas, text="Pavadinimas", bg= "white")
+l_pavadinimas.grid(row=1, column=0,sticky=E)
+e_pavadinimas = Entry(kolekcijos_pasirinkciu_freimas)
+e_pavadinimas.grid(row=1, column=1)
+l_metai = Label(kolekcijos_pasirinkciu_freimas, text="Metai", bg= "white")
+l_metai.grid(row=2, column=0, sticky= E)
+e_metai = Entry(kolekcijos_pasirinkciu_freimas)
+e_metai.grid(row=2, column=1)
+l_trukme = Label(kolekcijos_pasirinkciu_freimas, text="Trukme", bg= "white")
+l_trukme.grid(row=3, column=0, sticky= E)
+e_trukme = Entry(kolekcijos_pasirinkciu_freimas)
+e_trukme.grid(row=3, column=1)
+l_salis = Label(kolekcijos_pasirinkciu_freimas, text="Salis", bg= "white")
+l_salis.grid(row=4, column=0, sticky= E)
+e_salis = Entry(kolekcijos_pasirinkciu_freimas)
+e_salis.grid(row=4, column=1)
+l_sezonas = Label(kolekcijos_pasirinkciu_freimas, text="Sezonas")
+l_sezonas.grid(row=2, column=3, sticky=E)
+e_sezonas = Entry(kolekcijos_pasirinkciu_freimas)  
+e_sezonas.grid(row=2, column=4)
+e_serijos = Entry(kolekcijos_pasirinkciu_freimas)
+e_serijos.grid(row=3, column=4)
+l_serijos = Label(kolekcijos_pasirinkciu_freimas, text="Serijos")
+l_serijos.grid(row=3, column=3, sticky=E)
+
+    
+radio_button = IntVar()
+m_filmas = Radiobutton(kolekcijos_pasirinkciu_freimas, text="Filmas", variable=radio_button, value="0", bg= "white", command=serialai_off)
+m_filmas.grid(row=0, column=1, pady=5, sticky=W)
+m_serialas = Radiobutton(kolekcijos_pasirinkciu_freimas, text="Serialas", variable=radio_button, value="1", bg= "white", command=serialai_on)
+m_serialas.grid(row=0, column=2, pady=5, sticky=W)
 
 langas.mainloop()
 
