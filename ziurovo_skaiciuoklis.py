@@ -43,12 +43,12 @@ class Kolekcija():
         self.katalogas.append(serialas)
         statusas["text"] = f"{pavadinimas} buvo itrauktas i kolekcija."
 
-    def spausdinamas_katalogas(self):
-        for irasas in self.katalogas:
-            if isinstance(irasas, Serialas):
-                print(irasas.pavadinimas, irasas.metai, irasas.trukme, irasas.salis, irasas.sezonai, irasas.serijos)
-            elif isinstance(irasas, Filmas):
-                print(irasas.pavadinimas, irasas.metai, irasas.trukme, irasas.salis)
+    # def spausdinamas_katalogas(self):
+    #     for irasas in self.katalogas:
+    #         if isinstance(irasas, Serialas):
+    #             print(irasas.pavadinimas, irasas.metai, irasas.trukme, irasas.salis, irasas.sezonai, irasas.serijos)
+    #         elif isinstance(irasas, Filmas):
+    #             print(irasas.pavadinimas, irasas.metai, irasas.trukme, irasas.salis)
          
 
     def saugoti_kataloga(self, failo_pavadinimas):
@@ -130,7 +130,6 @@ def serialai_on():
     statusas["text"]="on"
 
 def kolekcijos_ivedimas():
-    print(radio_button.get())
     try:
         pavadinimas = str(e_pavadinimas.get())
         metai = int(e_metai.get())
@@ -160,6 +159,11 @@ def reiksmiu_nunulinimas():
     e_sezonas.delete(0, END)
     e_serijos.delete(0, END)
 
+def katalogu_saugojimas():
+    kolekcija.saugoti_kataloga("kolekcija")
+    ziurovas.saugoti_kataloga("ziurovas")
+    statusas["text"] = "Katalogai buvo issaugoti"
+
 kolekcija = Kolekcija()
 ziurovas = Kolekcija()
 
@@ -171,7 +175,6 @@ kolekcija.uzkrauti_kataloga("kolekcija")
 # ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas, "Constantine")
 # ziurovas.saugoti_kataloga("ziurovas")
 ziurovas.uzkrauti_kataloga("ziurovas")
-ziurovas.spausdinamas_katalogas()
 
 
 # grafines sasajos pagr langai freimai
@@ -188,7 +191,7 @@ langas.grid_columnconfigure(0, weight=1)
 
 #pranesimu juosta
 statuso_freimas.grid(row=4, column=0, padx=5, pady=5)
-statusas = Label(langas, text="cia bus statuso pranesimai", bd=2, relief=SUNKEN, anchor=W)
+statusas = Label(langas, text="...", bd=2, relief=SUNKEN, anchor=W)
 statusas.grid(row=6, column=0, sticky=W+E)
 # saraso listboxo elementai
 saraso_freimas.grid(row=3,  column=0,  padx=10,  pady=5)
@@ -208,7 +211,7 @@ m_uzkrauti_ziurovo_kataloga = Button(pasirinkciu_freimas, text="Ziurovo kataloga
 m_uzkrauti_ziurovo_kataloga.grid(row=1, column=2, padx=10, pady=5)
 m_iseiti = Button(pasirinkciu_freimas, text="Iseiti", command=uzdaryti)
 m_iseiti.grid(row=1, column=3, padx=10, pady=5)
-m_ivesti = Button(pasirinkciu_freimas, text="Issaugoti")
+m_ivesti = Button(pasirinkciu_freimas, text="Issaugoti", command=katalogu_saugojimas)
 m_ivesti.grid(row=1, column=4, padx=10, pady=5)
 
 l_pasirinkti = Label(kolekcijos_pasirinkciu_freimas, text="Prideti nauja", bg="white")
