@@ -1,5 +1,6 @@
 import pickle
 from tkinter import *
+from tkinter import ttk
 
 class Filmas():
     def __init__(self, pavadinimas, metai, trukme, salis):
@@ -89,15 +90,37 @@ def uzdaryti():
     langas.destroy()
 
 def rodyti_kataloga():
+    # kolekcijos_pasirinkciu_freimas = Frame(langas)
+    # kolekcijos_pasirinkciu_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
+    kolekcijos_pasirinkciu_freimas.tkraise()
     saraso_laukas.delete(0, END)
     saraso_laukas.insert(END, *kolekcija.katalogas)
+    m_rodyti_ivedima = Checkbutton(kolekcijos_pasirinkciu_freimas, text="Prideti nauja", command=nauju_filmu_ivedimas)
+    m_rodyti_ivedima.grid(row=0,  column=0,  padx=10,  pady=5)
+    # ziurovo_pasirinkciu_freimas.destroy()
 
 def rodyti_ziurova():
-    saraso_laukas.delete(0, END)
+    # ziurovo_pasirinkciu_freimas = Frame(langas)
+    # ziurovo_pasirinkciu_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
+    ziurovo_pasirinkciu_freimas.tkraise()
+    saraso_laukas.delete(0, END) 
     saraso_laukas.insert(END, *ziurovas.katalogas)
-
+    m_ziurovo_kolekcija_prideti = Button(ziurovo_pasirinkciu_freimas, text="Prideti i sarasa")
+    m_ziurovo_kolekcija_prideti.grid(row=0, column=0)
+    # kolekcijos_pasirinkciu_freimas.config(state=DISABLED)
+    # kolekcijos_pasirinkciu_freimas.destroy()
+   
 def kursoriaus_reiksme():
     statusas["text"]=saraso_laukas.curselection()
+
+def nauju_filmu_ivedimas():
+    # pasisveikinimas = Label(kolekcijos_pasirinkciu_freimas,text="labas")
+    # pasisveikinimas.grid(row=0, column=0)
+    m_filmas = Radiobutton(kolekcijos_pasirinkciu_freimas, text="Filmas")
+    m_filmas.grid(row=1, column=0, padx=10, pady=5, sticky=W)
+    m_serialas = Radiobutton(kolekcijos_pasirinkciu_freimas, text="Serialas")
+    m_serialas.grid(row=1, column=1, padx=10, pady=5, sticky=W)
+
 
 kolekcija = Kolekcija()
 ziurovas = Kolekcija()
@@ -116,6 +139,8 @@ ziurovas.spausdinamas_katalogas()
 langas = Tk()
 langas.geometry("550x400")
 pasirinkciu_freimas = Frame(langas)
+kolekcijos_pasirinkciu_freimas = Frame(langas)
+ziurovo_pasirinkciu_freimas = Frame(langas)
 saraso_freimas = Frame(langas)
 statuso_freimas = Frame(langas)
 
@@ -134,7 +159,6 @@ saraso_laukas = Listbox(saraso_freimas, width=85, height=8, yscrollcommand=scrol
 scrollbaras.config(command=saraso_laukas.yview)
 scrollbaras.grid(row=0, column=1, sticky=NSEW)
 saraso_laukas.grid(row=0,column=0, sticky=NSEW)
-# saraso_laukas.get(saraso_laukas.curselection())
 
 
 pasirinkciu_freimas.grid(row=0,  column=0,  padx=10,  pady=5)
@@ -147,7 +171,13 @@ m_iseiti.grid(row=1, column=2, padx=10, pady=5)
 m_ivesti = Button(pasirinkciu_freimas, text="ivesti", command=kursoriaus_reiksme)
 m_ivesti.grid(row=2, column=2, padx=10, pady=5)
 
+ziurovo_pasirinkciu_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
+ziurovo_pasirinkciu_freimas.place(height=140, width=510, x=15, y=80)
+ziurovo_pasirinkciu_freimas.config(background="white")
 
+kolekcijos_pasirinkciu_freimas.grid(row=1,  column=0,  padx=10,  pady=5)
+kolekcijos_pasirinkciu_freimas.place(height=140, width=510, x=15, y=80)
+kolekcijos_pasirinkciu_freimas.config(background="white")
 
 
 langas.mainloop()
