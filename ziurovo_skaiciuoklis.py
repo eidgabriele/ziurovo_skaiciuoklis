@@ -169,18 +169,11 @@ def istrinti_is_kolekcijos():
     filmo_indeksas= saraso_laukas.curselection()
     ziurovas.istrinti_filma_is_kolekcijos(filmo_indeksas[0])
     rodyti_ziurova()
-    statusas["text"] = f"Irasas istrintas is ziurovo kataloga"
+    statusas["text"] = f"Irasas istrintas is ziurovo katalogo"
 
 kolekcija = Kolekcija()
 ziurovas = Kolekcija()
-
-
 kolekcija.uzkrauti_kataloga("kolekcija")
-# ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas,"Cowboy Bebop")
-# ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas,"Lawrence of Arabia")
-# ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas, "Mad Men")
-# ziurovas.itraukti_filma_is_kolekcijos(kolekcija.katalogas, "Constantine")
-# ziurovas.saugoti_kataloga("ziurovas")
 ziurovas.uzkrauti_kataloga("ziurovas")
 
 # grafines sasajos pagr langai freimai
@@ -274,11 +267,12 @@ l_viso_vienetu.grid(row=0, column=1, padx=10,  pady=5, sticky=W)
 l_viso_laiko = Label(ziurovo_pasirinkciu_freimas, text="")
 l_viso_laiko.grid(row=1, column=1, padx=10,  pady=5, sticky=W)
 
-
-# l_matyti_filma = Label(ziurovo_pasirinkciu_freimas, text="Matytu filmu/serialu sarasas:")
-# l_matyti_filma.grid(row=4, column=0, padx=10,  pady=5, sticky=S)
+l_pasirinkite_istrynimui = Label(ziurovo_pasirinkciu_freimas, text="Pasirinkite filma, kuri norite istrinti:")
+l_pasirinkite_istrynimui.config()
+l_pasirinkite_istrynimui.place(height=25, width=200, x=5, y=130)
 m_istrinti_filma = Button(ziurovo_pasirinkciu_freimas, text="Isimti is katalogo", command=istrinti_is_kolekcijos)
-m_istrinti_filma.grid(row=4, column=0, padx=10,  pady=5, sticky=E+S)
+m_istrinti_filma.config()
+m_istrinti_filma.place(height=25, width= 100, x=400, y=130)
 
 
 # ikona, pavadinimas
