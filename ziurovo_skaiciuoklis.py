@@ -1,6 +1,5 @@
 import pickle
 from tkinter import *
-from tkinter import ttk
 from PIL import Image, ImageTk
 
 class Filmas():
@@ -109,21 +108,19 @@ def rodyti_ziurova():
     saraso_laukas.delete(0, END) 
     saraso_laukas.insert(END, *ziurovas.katalogas)
 
-
-    
 def serialai_off():
     e_sezonas.configure(state=DISABLED)
     e_sezonas.update()
     e_serijos.configure(state=DISABLED)
     e_serijos.update()
-    statusas["text"]="off"
+    # statusas["text"]="off"
 
 def serialai_on():
     e_sezonas.configure(state=NORMAL) 
     e_sezonas.update()
     e_serijos.configure(state=NORMAL)
     e_serijos.update()
-    statusas["text"]="on"
+    # statusas["text"]="on"
 
 def kolekcijos_ivedimas():
     try:
@@ -145,7 +142,6 @@ def kolekcijos_ivedimas():
             kolekcija.prideti_seriala(pavadinimas, metai, trukme, salis, sezonas, serijos)
             statusas["text"]= f"Serialas {pavadinimas} buvo itrauktas i kolekcija"
         reiksmiu_nunulinimas()
-
 
 def reiksmiu_nunulinimas():
     e_pavadinimas.delete(0, END)
@@ -266,14 +262,12 @@ l_viso_vienetu = Label(ziurovo_pasirinkciu_freimas, text="")
 l_viso_vienetu.grid(row=0, column=1, padx=10,  pady=5, sticky=W)
 l_viso_laiko = Label(ziurovo_pasirinkciu_freimas, text="")
 l_viso_laiko.grid(row=1, column=1, padx=10,  pady=5, sticky=W)
-
 l_pasirinkite_istrynimui = Label(ziurovo_pasirinkciu_freimas, text="Pasirinkite filma, kuri norite istrinti:")
 l_pasirinkite_istrynimui.config()
 l_pasirinkite_istrynimui.place(height=25, width=200, x=5, y=130)
 m_istrinti_filma = Button(ziurovo_pasirinkciu_freimas, text="Isimti is katalogo", command=istrinti_is_kolekcijos)
 m_istrinti_filma.config()
 m_istrinti_filma.place(height=25, width= 100, x=400, y=130)
-
 
 # ikona, pavadinimas
 ikona = Image.open('icons/icon-movie.png')
